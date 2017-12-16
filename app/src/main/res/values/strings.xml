@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CrownMovies</string>
+    <string name="title_activity_generate_qr">GenerateQR</string>
+    <string name="Generate">Generate</string>
+    <string name="MyAccount">My Account</string>
+    <string name="use">USE</string>
+</resources>
