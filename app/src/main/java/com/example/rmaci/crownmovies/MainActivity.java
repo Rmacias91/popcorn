@@ -62,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+//TODO: Finish Methods for Menu Option
+    private void showAllAccounts(){
+        mListarray.clear();
+       // mListarray.addAll(fileLoader.readCSV());
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAvaibleAccounts(){
+        //remove account functions here
+    }
+
     //removes
     private void removeUsedAccounts(){
         for(Account account: mListarray){
@@ -119,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             //https://stackoverflow.com/questions/5291726/what-is-the-main-purpose-of-settag-gettag-methods-of-view
             //Explains setting tags in views/buttons can easily set one listener to multiple buttons.
 
+            //TODO:GET ID OF BUTTON USE
             //For Use Button
             mUseButton = findViewById(R.id.butUsed);
             //identify each button with its position
