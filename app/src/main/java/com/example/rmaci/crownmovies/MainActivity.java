@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
-        mListarray.add(new Account("12/12/13","1234142123123123"));
-        mListarray.add(new Account("12/12/16","02323232323"));
-        mListarray.add(new Account("12/14/13","1231244"));
-        mListarray.add(new Account("2/12/13","151"));
-
+        fileLoader loader = new fileLoader(this);
+        mListarray = loader.readAccounts();
 
 
         adapter = new AccountAdapter(this,mListarray);
@@ -53,18 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class Account {
-        public String bday;
-        public String accountNum;
-        public boolean used;
 
-        public Account(String bday, String accountNum) {
-            this.bday = bday;
-            this.accountNum = accountNum;
-            used = false;
-        }
-
-    }
 
 
     public class AccountAdapter extends ArrayAdapter<Account> {
