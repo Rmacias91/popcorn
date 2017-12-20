@@ -25,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
     AccountAdapter adapter;
     SharedPreferences mSharedPref;
     Button mUseButton;
+    DateChecker mDateChecker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        mDateChecker = new DateChecker();
 
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
@@ -63,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
     //removes
     private void removeUsedAccounts(){
         for(Account account: mListarray){
+            //remove if Used
             if(mSharedPref.getBoolean(account.accountNum,false)){
+                removeUsedAccount(account);
+            }
+            //remove if not in Bday Range
+            if(!mDateChecker.inBdayRange(account.bday)){
                 removeUsedAccount(account);
             }
         }
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeUsedAccount(Account account){
         mListarray.remove(account);
-        mListView.deferNotifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
 
