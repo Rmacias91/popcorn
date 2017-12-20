@@ -2,6 +2,7 @@ package com.example.rmaci.crownmovies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +23,16 @@ public class MainActivity extends AppCompatActivity {
     ListView mListView;
     ArrayList<Account> mListarray;
     AccountAdapter adapter;
-
+    SharedPreferences mSharedPref;
+    Button mUseButton;
+    DateChecker mDateChecker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        mDateChecker = new DateChecker();
+
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
         fileLoader loader = new fileLoader(this);
@@ -35,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AccountAdapter(this,mListarray);
 
         mListView.setAdapter(adapter);
+
+        removeUsedAccounts();
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -48,6 +57,38 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+//TODO: Finish Methods for Menu Option
+    private void showAllAccounts(){
+        mListarray.clear();
+       // mListarray.addAll(fileLoader.readCSV());
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAvaibleAccounts(){
+        //remove account functions here
+    }
+
+    //removes
+    private void removeUsedAccounts(){
+        for(Account account: mListarray){
+            //remove if Used
+            if(mSharedPref.getBoolean(account.accountNum,false)){
+                removeUsedAccount(account);
+            }
+            //remove if not in Bday Range
+            if(!mDateChecker.inBdayRange(account.bday)){
+                removeUsedAccount(account);
+            }
+        }
+    }
+
+
+    public void removeUsedAccount(Account account){
+        mListarray.remove(account);
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -71,6 +112,25 @@ public class MainActivity extends AppCompatActivity {
             // Populate the data into the template view using the data object
             bday.setText(account.bday);
             // Return the completed view to render on screen
+
+            //https://stackoverflow.com/questions/5291726/what-is-the-main-purpose-of-settag-gettag-methods-of-view
+            //Explains setting tags in views/buttons can easily set one listener to multiple buttons.
+
+            //TODO:GET ID OF BUTTON USE
+            //For Use Button
+            mUseButton = findViewById(R.id.useBut);
+            //identify each button with its position
+            mUseButton.setTag(position);
+            //Could have made a db or csv file but wanted to try sharedpref. Made each key an account num
+            mUseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    int position=(Integer)arg0.getTag();
+                    Account account = getItem(position);
+                    mSharedPref.edit().putBoolean(account.accountNum,true).apply();
+                    removeUsedAccount(account);
+                }
+            });
             return convertView;
         }
     }
