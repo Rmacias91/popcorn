@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Account> mListarray;
     AccountAdapter adapter;
     SharedPreferences mSharedPref;
-    Button mUseButton;
     DateChecker mDateChecker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         mListarray = new ArrayList<>();
         fileLoader loader = new fileLoader(this);
         mListarray = loader.readAccounts();
+        mListarray = removeUsedAccounts();
 
 
         adapter = new AccountAdapter(this,mListarray);
 
         mListView.setAdapter(adapter);
 
-        removeUsedAccounts();
+
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,24 +72,26 @@ public class MainActivity extends AppCompatActivity {
         //remove account functions here
     }
 
+
     //removes
-    private void removeUsedAccounts(){
+    private ArrayList<Account> removeUsedAccounts(){
+        ArrayList<Account> validAccounts = new ArrayList<>();
         for(Account account: mListarray){
-            //remove if Used
-            if(mSharedPref.getBoolean(account.accountNum,false)){
-                removeUsedAccount(account);
+            //remove if Used or not in bday Range
+            if(mSharedPref.getBoolean(account.accountNum,false)|
+                    (!mDateChecker.inBdayRange(account.bday))){
+                Log.d("MainAct","Removed " + account.bday);
             }
-            //remove if not in Bday Range
-            if(!mDateChecker.inBdayRange(account.bday)){
-                removeUsedAccount(account);
-            }
+            else validAccounts.add(account);
         }
+        return validAccounts;
+
     }
 
 
     public void removeUsedAccount(Account account){
         mListarray.remove(account);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
     }
 
 
@@ -118,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
             //TODO:GET ID OF BUTTON USE
             //For Use Button
-            mUseButton = findViewById(R.id.useBut);
+            Button UseButton = convertView.findViewById(R.id.useBut);
             //identify each button with its position
-            mUseButton.setTag(position);
+            UseButton.setTag(position);
             //Could have made a db or csv file but wanted to try sharedpref. Made each key an account num
-            mUseButton.setOnClickListener(new View.OnClickListener() {
+            UseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     int position=(Integer)arg0.getTag();

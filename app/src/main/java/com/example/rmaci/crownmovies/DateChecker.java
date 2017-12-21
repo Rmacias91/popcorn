@@ -1,5 +1,7 @@
 package com.example.rmaci.crownmovies;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +33,8 @@ public class DateChecker {
         long days = getDateDiff(todaysDate,bdayDate,TimeUnit.DAYS);
         //Returns true if Not past 30 days from bday to Today
         //And Not negative(Before bday)
-        return(!(days >30) && (days<0));
+        Log.d("Date","Bday difference from today to "+bday+ "is: "+days+ "days" );
+        return(days <=30 && days >0);
     }
 
     //Expect CSV to have bday and Month only, else parse out the year by splitting string. ask mike.
