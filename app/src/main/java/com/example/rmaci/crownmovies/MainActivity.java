@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeUsedAccount(Account account){
         mListarray.remove(account);
-        //adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             //https://stackoverflow.com/questions/5291726/what-is-the-main-purpose-of-settag-gettag-methods-of-view
             //Explains setting tags in views/buttons can easily set one listener to multiple buttons.
 
-            //TODO:GET ID OF BUTTON USE
+
             //For Use Button
             Button UseButton = convertView.findViewById(R.id.useBut);
             //identify each button with its position
