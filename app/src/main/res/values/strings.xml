@@ -6,4 +6,5 @@
     <string name="use">USE</string>
     <string name="showAll">Show All</string>
     <string name="showAvail">Show Available</string>
+    <string name="resetUsed">Reset Used</string>
 </resources>

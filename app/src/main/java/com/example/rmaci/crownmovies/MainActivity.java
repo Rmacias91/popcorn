@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 showAvaibleAccounts();
                 mShowAll = false;
                 return true;
+            case R.id.reset_used:
+                resetUsed();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -108,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
         mListarray.addAll(removeUsedAccounts());
         Log.d("showAll","avail accounts: "+ mListarray.size());
         adapter.notifyDataSetChanged();
+    }
+
+    private void resetUsed(){
+        
     }
 
 
