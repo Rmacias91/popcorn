@@ -18,14 +18,14 @@ import java.util.List;
 
 public class fileLoader {
     private Context mContext;
-    private ArrayList<Account> mAccounts;
+
 
     public fileLoader(Context context){
         mContext = context;
-        mAccounts = new ArrayList<>();
         }
 
         public ArrayList<Account> readAccounts() {
+            ArrayList<Account> mAccounts = new ArrayList<>();
             final InputStream input = mContext.getResources().openRawResource(R.raw.accounts);
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(input, Charset.forName("UTF-8"))

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +29,32 @@ public class MainActivity extends AppCompatActivity {
     AccountAdapter adapter;
     SharedPreferences mSharedPref;
     DateChecker mDateChecker;
+    fileLoader mLoader;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.show_all:
+                showAllAccounts();
+                return true;
+            case R.id.show_available:
+                showAvaibleAccounts();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
-        fileLoader loader = new fileLoader(this);
-        mListarray = loader.readAccounts();
+        mLoader = new fileLoader(this);
+        mListarray = mLoader.readAccounts();
+        Log.d("Main","ListArray size first load:" + mListarray.size());
         mListarray = removeUsedAccounts();
+        Log.d("Main","ListArray size After removed:" + mListarray.size());
+
 
 
         adapter = new AccountAdapter(this,mListarray);
@@ -56,26 +88,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
-//TODO: Finish Methods for Menu Option
     private void showAllAccounts(){
         mListarray.clear();
-       // mListarray.addAll(fileLoader.readCSV());
+        mListarray.addAll(mLoader.readAccounts());
         adapter.notifyDataSetChanged();
+        Log.d("showAll",""+ mListarray.size());
+
     }
 
     private void showAvaibleAccounts(){
-        //remove account functions here
+
+        mListarray.addAll(removeUsedAccounts());
+        Log.d("showAll","avail accounts: "+ mListarray.size());
+        adapter.notifyDataSetChanged();
     }
 
 
     //removes
     private ArrayList<Account> removeUsedAccounts(){
         ArrayList<Account> validAccounts = new ArrayList<>();
+        Log.d("MainAct","Size of list Array before removal "+mListarray.size());
         for(Account account: mListarray){
             //remove if Used or not in bday Range
             if(mSharedPref.getBoolean(account.accountNum,false)|
@@ -84,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
             }
             else validAccounts.add(account);
         }
+        Log.d("MainAct","Size of Valid"+validAccounts.size());
+        mListarray.clear();
         return validAccounts;
-
     }
 
 

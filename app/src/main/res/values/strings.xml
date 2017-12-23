@@ -4,4 +4,6 @@
     <string name="Generate">Generate</string>
     <string name="MyAccount">My Account</string>
     <string name="use">USE</string>
+    <string name="showAll">Show All</string>
+    <string name="showAvail">Show Available</string>
 </resources>
