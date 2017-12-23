@@ -7,4 +7,5 @@
     <string name="showAll">Show All</string>
     <string name="showAvail">Show Available</string>
     <string name="resetUsed">Reset Used</string>
+    <string name="resetAccount">Reset Account</string>
 </resources>

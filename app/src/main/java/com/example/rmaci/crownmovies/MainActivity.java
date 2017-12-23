@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 showAvaibleAccounts();
                 mShowAll = false;
                 return true;
-            case R.id.reset_used:
-                resetUsed();
-                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        mSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         mDateChecker = new DateChecker();
         mShowAll = false;
 
@@ -114,9 +113,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void resetUsed(){
-        
-    }
+
+
 
 
     //removes
@@ -198,4 +196,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }
