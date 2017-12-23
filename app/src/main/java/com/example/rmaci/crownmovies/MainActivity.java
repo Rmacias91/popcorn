@@ -3,6 +3,7 @@ package com.example.rmaci.crownmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences mSharedPref;
     DateChecker mDateChecker;
     fileLoader mLoader;
+    boolean mShowAll;
 
 
     @Override
@@ -45,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.show_all:
                 showAllAccounts();
+                mShowAll=true;
                 return true;
             case R.id.show_available:
                 showAvaibleAccounts();
+                mShowAll = false;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mSharedPref = this.getPreferences(Context.MODE_PRIVATE);
         mDateChecker = new DateChecker();
+        mShowAll = false;
 
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
@@ -141,9 +146,16 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             // Get the data item for this position
             Account account = getItem(position);
+
             // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_layout, parent, false);
+            }
+            if(mSharedPref.getBoolean(account.accountNum,false)){
+                convertView.setBackgroundColor(Color.RED);
+            }
+            else{
+                convertView.setBackgroundColor(0x00000000);
             }
             // Lookup view for data population
             TextView bday = convertView.findViewById(R.id.bday);
@@ -158,6 +170,11 @@ public class MainActivity extends AppCompatActivity {
             //For Use Button
             Button UseButton = convertView.findViewById(R.id.useBut);
             //identify each button with its position
+            if(mShowAll){
+                UseButton.setVisibility(View.GONE);
+            }else{
+                UseButton.setVisibility(View.VISIBLE);
+            }
             UseButton.setTag(position);
             //Could have made a db or csv file but wanted to try sharedpref. Made each key an account num
             UseButton.setOnClickListener(new View.OnClickListener() {
