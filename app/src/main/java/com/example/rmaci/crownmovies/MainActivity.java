@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,19 +71,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         mDateChecker = new DateChecker();
         mShowAll = false;
 
+        settingPermission();
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
         mLoader = new fileLoader(this);
         mListarray = mLoader.readAccounts();
-        Log.d("Main","ListArray size first load:" + mListarray.size());
         mListarray = removeUsedAccounts();
-        Log.d("Main","ListArray size After removed:" + mListarray.size());
-
-
+        sortList();
 
         adapter = new AccountAdapter(this,mListarray);
 
@@ -98,18 +102,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void sortList() {
+        Collections.sort(mListarray, new Comparator<Account>() {
+            @Override
+            public int compare(Account account, Account t1) {
+                return account.compareTo(t1);
+            }
+        });
+    }
+
+    private void settingPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(getApplicationContext())) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 200);
+
+            }
+        }
+    }
+
     private void showAllAccounts(){
         mListarray.clear();
         mListarray.addAll(mLoader.readAccounts());
+        sortList();
         adapter.notifyDataSetChanged();
-        Log.d("showAll",""+ mListarray.size());
 
     }
 
     private void showAvaibleAccounts(){
-
         mListarray.addAll(removeUsedAccounts());
-        Log.d("showAll","avail accounts: "+ mListarray.size());
+        sortList();
         adapter.notifyDataSetChanged();
     }
 

@@ -33,8 +33,8 @@ public class DateChecker {
         long days = getDateDiff(todaysDate,bdayDate,TimeUnit.DAYS);
         //Returns true if Not past 30 days from bday to Today
         //And Not negative(Before bday)
-        Log.d("Date","Bday difference from today to "+bday+ "is: "+days+ "days" );
-        return(days <=30 && days >0);
+        Log.d("Date","Bday difference from today to "+bday+ "is: "+days+ " days" );
+        return(days <=30 && (days >=-29|days<=-334|days>334));
     }
 
     //Expect CSV to have bday and Month only, else parse out the year by splitting string. ask mike.

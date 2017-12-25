@@ -42,4 +42,17 @@
         tools:layout_editor_absoluteX="200dp"
         tools:layout_editor_absoluteY="50dp" />
 
+    <TextView
+        android:id="@+id/tv_account"
+        android:textSize="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:elevation="2dp"
+        android:gravity="center_horizontal"
+        android:text="@string/dummyAccount"
+        android:textColor="@color/white"
+        app:layout_anchor="@+id/imageView"
+        app:layout_anchorGravity="left|center" />
 </android.support.design.widget.CoordinatorLayout>
