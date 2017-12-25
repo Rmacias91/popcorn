@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         adapter.notifyDataSetChanged();
     }
-
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);

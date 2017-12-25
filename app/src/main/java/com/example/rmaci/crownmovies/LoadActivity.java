@@ -24,16 +24,17 @@ public class LoadActivity extends AppCompatActivity {
 
     private void verifyStoragePermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
-            if (!(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-            }
             if (!Settings.System.canWrite(getApplicationContext())) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, 200);
             }
-            if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-            Settings.System.canWrite(getApplicationContext())){
+            if (!(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+
+            if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED&&
+                    Settings.System.canWrite(getApplicationContext()))
+            {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }
@@ -45,10 +46,24 @@ public class LoadActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        Toast.makeText(this, "Thanks!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+        if (Build.VERSION.SDK_INT >= 23) {
+            if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED&&
+                    Settings.System.canWrite(getApplicationContext()))
+            {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Toast.makeText(this, "Thanks!", Toast.LENGTH_SHORT).show();
+                startActivity(i);
+            }
+        }else{
+            Toast.makeText(this,"Please Accept Permissions",Toast.LENGTH_SHORT).show();
+            verifyStoragePermissions();
+        }
 
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        verifyStoragePermissions();
     }
 }
 
