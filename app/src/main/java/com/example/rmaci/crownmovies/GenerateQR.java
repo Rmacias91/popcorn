@@ -10,8 +10,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -92,9 +94,14 @@ public class GenerateQR extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qr);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         Intent intent = getIntent();
+        //Only Show Action Bar if we are viewing all Items
+        if(intent.getBooleanExtra(MainActivity.EXTRA_SHOW,false)) {
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            toolbar.setTitle("");
+            setSupportActionBar(toolbar);
+        }
+
         mSharedPref =  PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         cResolver = getContentResolver();

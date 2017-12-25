@@ -32,6 +32,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA = "accountNum";
+    public static final String EXTRA_SHOW = "showAll";
     ListView mListView;
     ArrayList<Account> mListarray;
     AccountAdapter adapter;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 Account account = (Account)adapterView.getItemAtPosition(position);
                 Intent i = new Intent(getApplicationContext(),GenerateQR.class);
                 i.putExtra(EXTRA,account.accountNum);
+                i.putExtra(EXTRA_SHOW,mShowAll);
                 startActivity(i);
             }
         });
