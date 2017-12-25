@@ -2,9 +2,11 @@ package com.example.rmaci.crownmovies;
 
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,14 +28,22 @@ public class fileLoader {
 
         public ArrayList<Account> readAccounts() {
             ArrayList<Account> mAccounts = new ArrayList<>();
-            final InputStream input = mContext.getResources().openRawResource(R.raw.accounts);
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(input, Charset.forName("UTF-8"))
-            );
+
+
+            String downloadsPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+
+
+            //final InputStream input = mContext.getResources().openRawResource(R.raw.accounts);
 
             String line = "";
 
             try {
+                final InputStream input = new FileInputStream(downloadsPath+"/accounts.csv");
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(input, Charset.forName("UTF-8"))
+                );
+
+
                 while((line = bufferedReader.readLine())!= null ){
                     String[] tokens = line.split(",");
                     Account account = new Account(tokens[0],tokens[1]);
@@ -46,5 +56,4 @@ public class fileLoader {
             }
             return mAccounts;
         }
-
 }

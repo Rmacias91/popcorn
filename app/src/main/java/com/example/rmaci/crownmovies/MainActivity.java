@@ -1,13 +1,17 @@
 package com.example.rmaci.crownmovies;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,18 +82,15 @@ public class MainActivity extends AppCompatActivity {
         mShowAll = false;
 
         settingPermission();
+        verifyStoragePermissions();
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
         mLoader = new fileLoader(this);
         mListarray = mLoader.readAccounts();
         mListarray = removeUsedAccounts();
         sortList();
-
         adapter = new AccountAdapter(this,mListarray);
-
         mListView.setAdapter(adapter);
-
-
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,7 +120,14 @@ public class MainActivity extends AppCompatActivity {
             if (!Settings.System.canWrite(getApplicationContext())) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, 200);
+            }
+        }
+    }
 
+    private void verifyStoragePermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (!(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         }
     }
