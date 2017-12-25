@@ -37,12 +37,14 @@
 
     <ImageView
         android:id="@+id/image_qr"
-        android:layout_width="218dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="80dp"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="50dp" />
+        android:layout_width="345dp"
+        android:layout_height="179dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|top"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="71dp" />
 
     <TextView
         android:id="@+id/tv_account"

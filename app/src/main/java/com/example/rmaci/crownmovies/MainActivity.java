@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         mDateChecker = new DateChecker();
         mShowAll = false;
-
-        settingPermission();
-        verifyStoragePermissions();
         mListView = findViewById(R.id.listView);
         mListarray = new ArrayList<>();
         mLoader = new fileLoader(this);
@@ -114,23 +112,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void settingPermission() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.System.canWrite(getApplicationContext())) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, 200);
-            }
-        }
-    }
 
-    private void verifyStoragePermissions() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (!(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-            }
-        }
-    }
+
+
+
+
 
     private void showAllAccounts(){
         mListarray.clear();
@@ -233,5 +220,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }
