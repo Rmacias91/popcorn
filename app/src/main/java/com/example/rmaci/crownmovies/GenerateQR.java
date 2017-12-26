@@ -137,7 +137,7 @@ public class GenerateQR extends AppCompatActivity {
 
                 QRCodeWriter writer = new QRCodeWriter();
                 try{
-                    BitMatrix bitMatrix = writer.encode(mAccountNum,BarcodeFormat.QR_CODE,200,200);
+                    BitMatrix bitMatrix = writer.encode(mAccountNum,BarcodeFormat.QR_CODE,800,500);
                     int width = bitMatrix.getWidth();
                     int height = bitMatrix.getHeight();
                     Bitmap bmp = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);

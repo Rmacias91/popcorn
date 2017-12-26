@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:parentActivityName=".LoadActivity">
+            android:parentActivityName=".LoadActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -25,6 +26,8 @@
             android:label="@string/title_activity_generate_qr"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
+            android:largeHeap="true"
+            android:hardwareAccelerated="false"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
