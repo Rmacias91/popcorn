@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -140,13 +141,16 @@ public class GenerateQR extends AppCompatActivity {
                     BitMatrix bitMatrix = writer.encode(mAccountNum,BarcodeFormat.QR_CODE,800,500);
                     int width = bitMatrix.getWidth();
                     int height = bitMatrix.getHeight();
-                    Bitmap bmp = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
+                    Bitmap bmp = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
+                    bmp.setHasAlpha(true);
                     for (int x = 0; x < width; x++) {
                         for (int y = 0; y < height; y++) {
-                            bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                            bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.TRANSPARENT);
 
                         }
                     }
+//                    BitmapDrawable bd = new BitmapDrawable(bmp);
+//                    bd.setAlpha(50);
                     ((ImageView) findViewById(R.id.image_qr)).setImageBitmap(bmp);
                 }catch(WriterException e){e.printStackTrace();}
             }
