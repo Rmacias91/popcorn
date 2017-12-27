@@ -29,8 +29,11 @@ You can insert as many accounts as you have by inserting an account and pressing
 prompt you again. Else Restart the app and the app will ask again for permissions.
 1. If you do not see the List appear click on the options menu and click show Available. Else, double check the accounts.csv is stored in the correct fomrat as shown in step
 1
-1. The Screen should look like this.<img src="img/Screenshot_1514403715.png" alt="Show Avail" style="width: 30px;"/>
-![](https://github.com/Rmacias91/popcorn/blob/master/img/Screenshot_1514403592.png | width=100)
+1. The Screen should look like this
+<p align = "center">
+<img src="https://github.com/Rmacias91/popcorn/blob/master/img/Screenshot_1514403715.png" alt="Show Avail" width="60%"/>
+</p>
+
 1. You may press any Birth-date to bring up the QR code.
   1. This app was made to keep track of Birth-dates because Regal Awards free popcorn. If anyone wants I can easily have the list
   provide names instead. 
@@ -39,11 +42,16 @@ prompt you again. Else Restart the app and the app will ask again for permission
   1. Show All will show all accounts in the list. If an account has been used it will be red.
 1. You may **use** an account be pressing **USE**. This will remove the account from the Available list and Make the account
 Red in the Show All List. This helps keep track when you've used an account for a popcorn.
-Here's an Image of what the Show All List looks Like.<img src="img/Screenshot_1514403738.png" alt="Show All" style="width: 30px;"/>
+Here's an Image of what the Show All List looks Like.
+<p align = "center">
+<img src="https://github.com/Rmacias91/popcorn/blob/master/img/Screenshot_1514403738.png" alt="Show Avail" width="60%"/>
+</p>
 1. To Reset an Account from being used, in case you've accidentally used it or it's been a year. Go To Show All. Click The Account. On the top right 
 there is a hidden button to the Top Right. Press it, Press Reset Account and select Yes when the Dialogue is prompted. This will Reset the account and will be available to be used again.
 *Ignore the Days Available in the QR Generation Screen. The days left is automatically kept track of for the Available List.*
-<img src="img/Screenshot_1514403748.png" alt="Reset Account" style="width: 30px;"/>
+<p align = "center">
+<img src="https://github.com/Rmacias91/popcorn/blob/master/img/Screenshot_1514403748.png" alt="Show Avail" width="60%"/>
+</p>
 
 
 ## Questions or Suggestions?
