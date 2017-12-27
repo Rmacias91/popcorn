@@ -30,7 +30,7 @@ prompt you again. Else Restart the app and the app will ask again for permission
 1. If you do not see the List appear click on the options menu and click show Available. Else, double check the accounts.csv is stored in the correct fomrat as shown in step
 1
 1. The Screen should look like this.<img src="img/Screenshot_1514403715.png" alt="Show Avail" style="width: 30px;"/>
-![](img/Screenshot_1514403715.png | width=100)
+![](./img/Screenshot_1514403715.png | width=100)
 1. You may press any Birth-date to bring up the QR code.
   1. This app was made to keep track of Birth-dates because Regal Awards free popcorn. If anyone wants I can easily have the list
   provide names instead. 
