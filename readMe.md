@@ -2,7 +2,7 @@
 ## When your family/friends have multiple accounts and don't want everyone to pull out their phones.
 
 ### Purpose of the App
-My friends/family are going to the movies more often thanks to Movie Pass. I felt pretty bad for the employyees
+My friends/family are going to the movies more often thanks to Movie Pass. I felt pretty bad for the employees 
 having to juggle phones, Movie Pass, QR codes, regal accounts for x amount of people. This app helps accumulate all accounts
 in one Phone so its easy as pie. Cake. Easy as.. Stealing Candy from no one, because that's wrong. Just install the app,
 store your accounts, and quickly pull every account up you need! It's also a great way to keep track of who has a birthday, 
