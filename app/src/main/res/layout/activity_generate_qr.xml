@@ -32,19 +32,17 @@
 
     <ImageView
         android:id="@+id/image_qr"
-        android:layout_width="350dp"
-        android:layout_height="192dp"
+        android:layout_width="369dp"
+        android:layout_height="213dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="20dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.116" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.146" />
 
     <TextView
         android:id="@+id/tv_account"
