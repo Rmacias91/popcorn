@@ -157,13 +157,14 @@ public class GenerateQR extends AppCompatActivity {
 
     private String addSpacesToAccount(String account){
         StringBuilder spacedAccount = new StringBuilder();
-        while(account.length() > 0) {
+        while(account.length() > 3) {
+
             String nextChunk = account.substring(0,4);
             spacedAccount = spacedAccount.append(nextChunk).append(" ");
 
             account = account.substring(4,account.length());
         }
-
+        spacedAccount = spacedAccount.append(account);
         return spacedAccount.toString();
     }
 
