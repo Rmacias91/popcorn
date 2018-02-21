@@ -134,11 +134,11 @@ public class GenerateQR extends AppCompatActivity {
 
         mAccountNum = intent.getStringExtra(MainActivity.EXTRA);
         TextView tv_account = findViewById(R.id.tv_account);
-        tv_account.setText(addSpacesToAccount(mAccountNum));
+        //tv_account.setText(addSpacesToAccount(mAccountNum));
 
                 QRCodeWriter writer = new QRCodeWriter();
                 try{
-                    BitMatrix bitMatrix = writer.encode(mAccountNum,BarcodeFormat.QR_CODE,800,500);
+                    BitMatrix bitMatrix = writer.encode(mAccountNum,BarcodeFormat.QR_CODE,500,300);
                     int width = bitMatrix.getWidth();
                     int height = bitMatrix.getHeight();
                     Bitmap bmp = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
