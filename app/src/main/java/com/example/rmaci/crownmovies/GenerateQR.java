@@ -134,7 +134,7 @@ public class GenerateQR extends AppCompatActivity {
 
         mAccountNum = intent.getStringExtra(MainActivity.EXTRA);
         TextView tv_account = findViewById(R.id.tv_account);
-        //tv_account.setText(addSpacesToAccount(mAccountNum));
+        tv_account.setText(addSpacesToAccount(mAccountNum));
 
                 QRCodeWriter writer = new QRCodeWriter();
                 try{
