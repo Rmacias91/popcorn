@@ -31,7 +31,8 @@ prompt you again. Else Restart the app and the app will ask again for permission
 1
 1. The Screen should look like this
 <p align = "center">
-<img src="/architecutrePics/InitalClassInterview.JPG" alt="ClassDiagram" width="60%"/>
+  
+<img src="https://github.com/Rmacias91/popcorn/blob/master/img/Screenshot_1514403715.png" alt="ClassDiagram" width="60%"/>
 </p>
 
 1. You may press any Birth-date to bring up the QR code.
