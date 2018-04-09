@@ -17,6 +17,7 @@ import static java.lang.Math.abs;
  */
 
 public class DateChecker {
+    private static final int millisInDays = 86400000;
     private Date todaysDate;
 
     DateChecker(){
@@ -34,7 +35,7 @@ public class DateChecker {
         //Returns true if Not past 30 days from bday to Today
         //And Not negative(Before bday)
         Log.d("Date","Bday difference from today to "+bday+ "is: "+days+ " days" );
-        return(days <=30 && (days >=-29|days<=-334|days>334));
+        return(days <= 30);
     }
 
     //Expect CSV to have bday and Month only, else parse out the year by splitting string. ask mike.
@@ -55,8 +56,7 @@ public class DateChecker {
     //Over 30 means expired!
     //This returns Difference in days from mm/d
     public long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
-        long diffInMillies = date2.getTime() - date1.getTime();
-        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+        return(date2.getTime() - date1.getTime() - millisInDays);
     }
 
 
